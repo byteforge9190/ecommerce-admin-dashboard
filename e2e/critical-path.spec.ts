@@ -1,13 +1,7 @@
-import { test, expect } from '@playwright/test';
-import { loginAsAdmin, adminNav } from './helpers/auth';
+import { test, expect, openAdminShell, adminNav } from './helpers/admin-fixtures';
 
-test('operator journey: login, products, order detail', async ({ page }) => {
-  test.skip(
-    !process.env.E2E_ADMIN_EMAIL || !process.env.E2E_ADMIN_PASSWORD,
-    'Set E2E_ADMIN_EMAIL and E2E_ADMIN_PASSWORD (see e2e/README.md).',
-  );
-
-  await loginAsAdmin(page);
+test('operator journey: dashboard, products, order detail', async ({ page }) => {
+  await openAdminShell(page);
 
   await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible();
   await expect(page.getByLabel('Period')).toBeVisible();
